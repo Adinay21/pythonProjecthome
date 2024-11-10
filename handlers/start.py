@@ -1,4 +1,4 @@
-from aiogram import Router, types
+from aiogram import Router, F, types
 from aiogram.filters import Command
 
 
@@ -21,7 +21,18 @@ async def start_handler(message: types.Message):
                     text="Наш инстаграм",
                     url="https://www.instagram.com/ya_booblik/"
                 )
+            ],
+            [
+                types.InlineKeyboardButton(
+                    text="Оставить отзыв",
+                    callback_data="review"
+                )
             ]
         ]
     )
     await message.answer(msg, reply_markup=kb)
+
+@start_router.callback_query(F.data == "review")
+async def about_us(callback: types.CallbackQuery):
+    await callback.message.answer("Оставить отзыв")
+
