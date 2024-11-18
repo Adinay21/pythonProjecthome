@@ -3,6 +3,8 @@ from aiogram.filters import Command
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 
+from bot_config import database
+
 review_router = Router()
 
 
@@ -97,4 +99,15 @@ async def process_genre(message: types.Message, state: FSMContext):
     await message.answer("Спасибо за оставленный отзыв!")
     data = await state.get_data()
     print(data)
+
+    database.execute(
+        query="""
+        INSERT INTO survey_results (name, phone_number, instagram_username, visit_date, food_rating, cleanliness_rating, extra_comments)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        """,
+        params=(data["name"], data["phone_number"], data["instagram_username"], data["visit_date"],
+                data["food_rating"], data["cleanliness_rating"], data["extra_comments"]),
+    )
+
+
     await state.clear()
