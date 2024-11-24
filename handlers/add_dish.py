@@ -6,16 +6,15 @@ from bot_config import database
 
 
 add_dish_router = Router()
-add_dish_router.message.filter(F.from_user.id.in_(780722431))
+add_dish_router.message.filter(F.from_user.id == 780722431)
 
 class Dishes(StatesGroup):
     name = State()
     ingredients = State()
     price = State()
 
-@add_dish_router.message(Command("newdish"), default_state)
+@add_dish_router.message(Command("newdish"))
 async def new_dish(message: types.Message, state: FSMContext):
-    print(message.from_user.id)
     await state.set_state(Dishes.name)
     await message.answer("Напишите название блюда")
 
@@ -27,19 +26,19 @@ async def new_dish(message: types.Message, state: FSMContext):
 
 @add_dish_router.message(Dishes.ingredients)
 async def new_dish(message: types.Message, state: FSMContext):
-    await state.update_data(author=message.text)
+    await state.update_data(ingredients=message.text)
     await state.set_state(Dishes.price)
     await message.answer("Задайте цену блюда")
 
 @add_dish_router.message(Dishes.price)
 async def new_dish(message: types.Message, state: FSMContext):
-    await state.update_data(genre=message.text)
+    await state.update_data(price=message.text)
 
     data = await state.get_data()
     print(data)
     database.execute(
         query="""
-                INSERT INTO dishes(name, indredients, price)
+                INSERT INTO dishes(name, ingredients, price)
                 VALUES (?, ?, ?)
             """,
         params=(
