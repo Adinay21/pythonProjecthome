@@ -22,11 +22,21 @@ class Database:
             )
             conn.execute(
                 """
+                CREATE TABLE IF NOT EXISTS categories(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL
+                )
+                """
+            )
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS dishes(
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
                 ingredients TEXT NOT NULL,
-                price INTEGER NOT NULL
+                price INTEGER NOT NULL,
+                categories_id INTEGER NOT NULL,
+                FOREIGN KEY(categories_id) REFERENCES dishes(id)
                 )
                 """
             )
