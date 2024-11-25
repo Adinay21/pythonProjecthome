@@ -90,7 +90,7 @@ async def new_dish(message: types.Message, state: FSMContext):
             data["name"],
             data["ingredients"],
             data["price"],
-            data["category"]
+            data["categories"]
         )
     )
     kb = types.ReplyKeyboardRemove()
