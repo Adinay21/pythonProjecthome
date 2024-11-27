@@ -6,7 +6,7 @@ from bot_config import database
 
 
 add_dish_router = Router()
-add_dish_router.message.filter(F.from_user.id == 780722431)
+# add_dish_router.message.filter(F.from_user.id == 780722431)
 
 class Dishes(StatesGroup):
     name = State()

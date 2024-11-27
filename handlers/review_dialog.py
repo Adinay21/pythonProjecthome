@@ -102,7 +102,7 @@ async def process_genre(message: types.Message, state: FSMContext):
 
     database.execute(
         query="""
-        INSERT INTO survey_results (name, phone_number, instagram_username, visit_date, food_rating, cleanliness_rating, extra_comments)
+        INSERT INTO reviews (name, phone_number, instagram_username, visit_date, food_rating, cleanliness_rating, extra_comments)
         VALUES (?, ?, ?, ?, ?, ?, ?)
         """,
         params=(data["name"], data["phone_number"], data["instagram_username"], data["visit_date"],

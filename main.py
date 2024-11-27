@@ -9,6 +9,7 @@ from handlers.info import info_router
 from handlers.review_dialog import review_router
 from handlers.add_dish import add_dish_router
 from handlers.dishes import dishes_router
+from handlers.ban import ban_router
 
 
 
@@ -22,7 +23,7 @@ async def main():
     dp.include_router(review_router)
     dp.include_router(add_dish_router)
     dp.include_router(dishes_router)
-
+    dp.include_router(ban_router)
 
     await dp.start_polling(bot)
 

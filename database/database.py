@@ -13,7 +13,7 @@ class Database:
                         name TEXT,
                         phone_number VARCHAR,
                         instagram_username TEXT,
-                        visit_date DATA,
+                        visit_date DATE,
                         food_rating INTEGER,
                         cleanliness_rating INTEGER,
                         extra_comments TEXT
